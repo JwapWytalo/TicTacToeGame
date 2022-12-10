@@ -1,16 +1,22 @@
 package Classes;
 
 public class Metodos {
+
 	int i, j, n = 3;
-	int matrix[][] = { { 3, 3, 3 }, { 3, 3, 3 }, { 3, 3, 3 } };
+	String matrix[][] = { { "_", "_", "_" }, { "_", "_", "_" }, { "_", "_", "_" } };
+	String local[][] = { { "0", "", "" }, { "1", "", "" }, { "2", "", "" } };
 
-	public void menu() {
+	// METODO PARA MOSTRAR O TABULEIRO
 
+	public void tabuleiro() {
+
+		System.out.println("   0   1   2");
 		for (i = 0; i < n; i++) {
 			System.out.println();
 			for (j = 0; j < n; j++) {
 
-				System.out.printf("[%d]", matrix[i][j]);
+				System.out.printf("%s", local[i][j]);
+				System.out.printf(" [%s]", matrix[i][j]);
 
 			}
 
@@ -18,55 +24,45 @@ public class Metodos {
 
 	}
 
-	public void alterar(int linha, int coluna, int jog) {
+	// ALTERANDO JOGADAS
+
+	public int alterar(int linha, int coluna, int jog) {
 
 		if (checa(linha, coluna) == 0) {
 
 			if (jog % 2 == 0) {
 
-				this.matrix[linha][coluna] = 1;
+				this.matrix[linha][coluna] = "x";
 
-				if (verificaWin() == 1) {
-
-					System.out.println("Voce venceu!");
-
-				} else {
-
-					menu();
-
-				}
+				tabuleiro();
+				return 1;
 
 			} else {
 
-				this.matrix[linha][coluna] = 0;
+				this.matrix[linha][coluna] = "o";
 
-				if (verificaWin() == 1) {
-
-					System.out.println("Voce venceu!");
-
-				} else {
-
-					menu();
-
-				}
-
+				tabuleiro();
+				return 1;
 			}
 
 		} else {
 
 			System.out.println("Pos ocupada!");
+			return 0;
 
 		}
 
 	}
 
+	// VERIFICA SE A POSIÇÃO FOI OCUPADA OU NÃO
+
 	public int checa(int linha, int coluna) {
 
-		if (this.matrix[linha][coluna] == 1) {
+		if (this.matrix[linha][coluna] == "x") {
 
 			return 1;
 
-		} else if (this.matrix[linha][coluna] == 0) {
+		} else if (this.matrix[linha][coluna] == "o") {
 
 			return -1;
 
@@ -77,16 +73,21 @@ public class Metodos {
 		}
 	}
 
+	// VERIFICA SE EXISTE UM VENCEDOR
+
 	public int verificaWin() {
 
-		if ((this.matrix[0][0] == 1 || this.matrix[0][0] == 0) && (this.matrix[0][1] == 1 || this.matrix[0][1] == 0)
-				&& (this.matrix[0][2] == 1 || this.matrix[0][2] == 0)
-				|| (this.matrix[1][0] == 1 || this.matrix[1][0] == 0)
-				&& (this.matrix[1][1] == 1 || this.matrix[1][1] == 0)
-				&& (this.matrix[1][2] == 1 || this.matrix[1][2] == 0)
-				|| (this.matrix[2][0] == 1 || this.matrix[2][0] == 0)
-				&& (this.matrix[2][1] == 1 || this.matrix[2][1] == 0)
-				&& (this.matrix[2][2] == 1 || this.matrix[2][2] == 0)) {
+		if ((this.matrix[0][0] == "x" || this.matrix[0][0] == "o")
+				&& (this.matrix[0][1] == "x" || this.matrix[0][1] == "o")
+				&& (this.matrix[0][2] == "x" || this.matrix[0][2] == "o")
+				|| (this.matrix[1][0] == "x" || this.matrix[1][0] == "o")
+						&& (this.matrix[1][1] == "x" || this.matrix[1][1] == "o")
+						&& (this.matrix[1][2] == "x" || this.matrix[1][2] == "o")
+				|| (this.matrix[2][0] == "x" || this.matrix[2][0] == "o")
+						&& (this.matrix[2][1] == "x" || this.matrix[2][1] == "o")
+						&& (this.matrix[2][2] == "x" || this.matrix[2][2] == "o")
+				|| (matrix[0][0] == "x" || matrix[0][0] == "o") && (matrix[1][1] == "x" || matrix[1][1] == "o")
+						&& (matrix[2][2] == "x" || matrix[2][2] == "o")) {
 
 			return 1;
 

@@ -7,15 +7,21 @@ public class App {
 
 	public static void main(String[] args) {
 
+		// VARIAVEIS
+
 		Metodos met = new Metodos();
 		Scanner scan = new Scanner(System.in);
 		int linha, coluna, count = 0;
 
-		met.menu();
+		met.tabuleiro();
 
 		System.out.println();
 
+		// LOOP QUE CONTA AS JOGADAS
+
 		do {
+
+			// CONDIÇÃO PARA IDENTIFICAR O JOGADOR 1 OU 2
 
 			if (count % 2 == 0) {
 
@@ -27,27 +33,55 @@ public class App {
 				System.out.println("Digite a coluna: ");
 				coluna = scan.nextInt();
 
-				met.alterar(linha, coluna, count);
+				if (met.alterar(linha, coluna, count) == 1) {
+
+					count++;
+
+				}
+
+				if (met.verificaWin() == 1) {
+
+					System.out.println("Voce venceu!");
+					
+					break;
+					
+				}
 
 				count++;
 
 			} else {
 
 				System.out.println("vez do jogador 2 ");
-				
+
 				System.out.println("Digite a linha: ");
 				linha = scan.nextInt();
 
 				System.out.println("Digite a coluna: ");
 				coluna = scan.nextInt();
 
-				met.alterar(linha, coluna, count);
-				
-				count++;
+				if (met.alterar(linha, coluna, count) == 0) {
+
+					count++;
+
+				}
+
+				if (met.verificaWin() == 1) {
+
+					System.out.println("Voce venceu!");
+					break;
+				}
+			}
+
+			if (count == 9) {
+
+				System.out.println("EMPATE!");
+				break;
 			}
 
 		} while (count != 9);
 
+		
+		scan.close();
 	}
 
 }
