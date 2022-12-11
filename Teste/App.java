@@ -9,78 +9,140 @@ public class App {
 
 		// VARIAVEIS
 
-		Metodos met = new Metodos();
+		Solo sol = new Solo();
+		Dupla duo = new Dupla();
 		Scanner scan = new Scanner(System.in);
-		int linha, coluna, count = 0;
+		int linha, coluna, count = 0, over, modo;
 
-		met.tabuleiro();
+		System.out.println("Digite 1 para jogar sozinho ou 2 para jugaar em dupla");
+		modo = scan.nextInt();
 
-		System.out.println();
+		switch (modo) {
 
-		// LOOP QUE CONTA AS JOGADAS
+		case 1:
 
-		do {
+			sol.tabuleiro();
 
-			// CONDIÇÃO PARA IDENTIFICAR O JOGADOR 1 OU 2
+			System.out.println();
 
-			if (count % 2 == 0) {
+			// LOOP QUE CONTA AS JOGADAS
 
-				System.out.println("Vez do jogador 1: ");
+			do {
 
-				System.out.println("Digite a linha: ");
-				linha = scan.nextInt();
+				// CONDIÇÃO PARA IDENTIFICAR O JOGADOR 1 OU 2
 
-				System.out.println("Digite a coluna: ");
-				coluna = scan.nextInt();
+				if (count % 2 == 0) {
 
-				if (met.alterar(linha, coluna, count) == 1) {
+					System.out.println("\nVez do jogador 1: ");
 
-					count++;
+					System.out.println("Digite a linha e a coluna: ");
+					linha = scan.nextInt();
+					coluna = scan.nextInt();
 
+					if (sol.alterar(linha, coluna, count) != -1) {
+
+						count++;
+
+					}
+
+					if (sol.verificaWin() == 1) {
+
+						System.out.println("Voce venceu!");
+
+						break;
+
+					}
+
+				} else {
+
+					System.out.println("\nvez do jogador 2 ");
+
+					System.out.println("Digite a linha e a coluna: ");
+					linha = scan.nextInt();
+					coluna = scan.nextInt();
+
+					if (sol.alterar(linha, coluna, count) != -1) {
+
+						count++;
+
+					}
+
+					if (sol.verificaWin() == 1) {
+
+						System.out.println("Voce venceu!");
+						break;
+					}
 				}
 
-				if (met.verificaWin() == 1) {
+				if (count == 9) {
 
-					System.out.println("Voce venceu!");
-					
+					System.out.println("EMPATE!");
 					break;
+				}
+
+			} while (count != 9);
+
+			break;
+			
+		case 2:
+			
+			duo.tabuleiro();
+			
+			do {
+
+				// CONDIÇÃO PARA IDENTIFICAR O JOGADOR 1 OU 2
+
+				if (count % 2 == 0) {
+
+					System.out.println("\nVez do jogador 1: ");
+
+					System.out.println("Digite a linha e a coluna: ");
+					linha = scan.nextInt();
+					coluna = scan.nextInt();
+
+					if (duo.alterar(linha, coluna, count) != -1) {
+
+						count++;
+
+					}
+
+					if (sol.verificaWin() == 1) {
+
+						System.out.println("Voce venceu!");
+
+						break;
+
+					}
+
+				} else {
+
+					System.out.println("\nvez do jogador 2 ");
+					duo.maquina(count);
 					
+
+					if (duo.maquina(count) != -1) {
+
+						count++;
+
+					}
+
+					if (sol.verificaWin() == 1) {
+
+						System.out.println("Voce venceu!");
+						break;
+					}
 				}
 
-				count++;
+				if (count == 9) {
 
-			} else {
-
-				System.out.println("vez do jogador 2 ");
-
-				System.out.println("Digite a linha: ");
-				linha = scan.nextInt();
-
-				System.out.println("Digite a coluna: ");
-				coluna = scan.nextInt();
-
-				if (met.alterar(linha, coluna, count) == 0) {
-
-					count++;
-
-				}
-
-				if (met.verificaWin() == 1) {
-
-					System.out.println("Voce venceu!");
+					System.out.println("EMPATE!");
 					break;
 				}
-			}
 
-			if (count == 9) {
+			} while (count != 9);
+			
+		} 
 
-				System.out.println("EMPATE!");
-				break;
-			}
-
-		} while (count != 9);
-
-		
 		scan.close();
 	}
 
